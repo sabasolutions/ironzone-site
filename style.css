@@ -1,0 +1,261 @@
+/* ===========================
+   RESET & BASE
+=========================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --accent: #F97316;
+  --accent-dark: #C2410C;
+  --accent-light: #FFF7ED;
+  --text: #0A0A0A;
+  --muted: #6B7280;
+  --bg: #ffffff;
+  --surface: #0F0F0F;
+  --border: #E5E7EB;
+  --radius: 12px;
+  --font: 'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+.accent { color: var(--accent); }
+
+/* ===========================
+   NAV
+=========================== */
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem; background: var(--surface); position: sticky; top: 0; z-index: 100;
+}
+
+.logo { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: 0.05em; }
+
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { font-size: 14px; color: rgba(255,255,255,0.7); text-decoration: none; font-weight: 600; transition: color 0.2s; letter-spacing: 0.03em; }
+.nav-links a:hover { color: var(--accent); }
+
+.hamburger { display: none; background: none; border: none; font-size: 22px; cursor: pointer; color: #fff; }
+
+/* ===========================
+   BUTTONS
+=========================== */
+.btn-primary {
+  display: inline-block; background: var(--accent); color: #fff;
+  border: 2px solid var(--accent); border-radius: 8px; padding: 10px 24px;
+  font-size: 14px; font-weight: 700; font-family: var(--font); letter-spacing: 0.03em;
+  text-decoration: none; cursor: pointer; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+.btn-outline {
+  display: inline-block; background: transparent; color: var(--accent);
+  border: 2px solid var(--accent); border-radius: 8px; padding: 10px 24px;
+  font-size: 14px; font-weight: 700; font-family: var(--font);
+  text-decoration: none; cursor: pointer; transition: background 0.2s;
+}
+.btn-outline:hover { background: var(--accent-light); }
+
+.btn-ghost {
+  display: inline-block; background: transparent; color: #fff;
+  border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 10px 24px;
+  font-size: 14px; font-weight: 700; font-family: var(--font);
+  text-decoration: none; cursor: pointer; transition: border-color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-lg { padding: 16px 34px; font-size: 16px; border-radius: 10px; }
+
+/* ===========================
+   HERO
+=========================== */
+.hero {
+  background: var(--surface);
+  position: relative;
+  padding: 7rem 0 5rem;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(249,115,22,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.hero-tag {
+  display: inline-block; background: rgba(249,115,22,0.15); color: var(--accent);
+  font-size: 13px; font-weight: 700; padding: 6px 16px; border-radius: 6px;
+  margin-bottom: 1.5rem; letter-spacing: 0.05em;
+}
+
+.hero h1 {
+  font-size: 80px; font-weight: 900; line-height: 0.95; margin-bottom: 1.5rem;
+  letter-spacing: -0.03em; color: #fff;
+}
+
+.hero-sub { font-size: 18px; color: rgba(255,255,255,0.65); max-width: 500px; margin-bottom: 2.5rem; line-height: 1.7; }
+
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 4rem; }
+
+.hero-stats {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+}
+.stat strong { display: block; font-size: 30px; font-weight: 900; color: var(--accent); }
+.stat span { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500; }
+
+/* ===========================
+   CORSI
+=========================== */
+.corsi { padding: 5rem 0; }
+
+.section-label {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem;
+}
+
+.corsi h2, .abbonamenti h2, .trainer h2, .contatti-info h2 {
+  font-size: 36px; font-weight: 900; margin-bottom: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+.corsi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+
+.corso-card {
+  background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius);
+  padding: 1.75rem; transition: border-color 0.2s, transform 0.2s;
+}
+.corso-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.corso-card.featured { border-color: var(--accent); background: var(--accent-light); }
+
+.corso-icon { font-size: 32px; margin-bottom: 0.75rem; }
+.corso-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 0.5rem; }
+.corso-card p { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+.corso-badge {
+  display: inline-block; background: var(--surface); color: #fff;
+  font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 6px; letter-spacing: 0.04em;
+}
+.corso-card.featured .corso-badge { background: var(--accent); }
+
+/* ===========================
+   ABBONAMENTI
+=========================== */
+.abbonamenti { padding: 5rem 0; background: var(--surface); }
+.abbonamenti h2 { color: #fff; }
+.abbonamenti .section-label { color: var(--accent); }
+
+.piani-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+.piano-card {
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: var(--radius);
+  padding: 2rem 1.5rem; position: relative; color: #fff;
+}
+.piano-card.featured {
+  background: var(--accent); border-color: var(--accent); transform: scale(1.03);
+}
+
+.piano-badge {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: #FBBF24; color: #000; font-size: 11px; font-weight: 800;
+  padding: 4px 14px; border-radius: 20px; white-space: nowrap;
+}
+
+.piano-card h3 { font-size: 22px; font-weight: 900; margin-bottom: 0.25rem; }
+.piano-desc { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 1rem; }
+.piano-price { margin-bottom: 1.5rem; }
+.piano-price strong { font-size: 40px; font-weight: 900; }
+.piano-price span { font-size: 14px; color: rgba(255,255,255,0.6); }
+
+.piano-card ul { list-style: none; margin-bottom: 2rem; }
+.piano-card ul li { font-size: 14px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+.piano-card .btn-outline { width: 100%; text-align: center; border-color: rgba(255,255,255,0.3); color: #fff; }
+.piano-card .btn-outline:hover { background: rgba(255,255,255,0.1); }
+.piano-card.featured .btn-primary { width: 100%; text-align: center; background: #fff; color: var(--accent); border-color: #fff; }
+
+/* ===========================
+   TRAINER
+=========================== */
+.trainer { padding: 5rem 0; }
+.trainer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+.trainer-card {
+  border: 2px solid var(--border); border-radius: var(--radius); padding: 2rem;
+  text-align: center; transition: border-color 0.2s;
+}
+.trainer-card:hover { border-color: var(--accent); }
+
+.trainer-avatar {
+  width: 72px; height: 72px; background: var(--accent-light);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 32px; margin: 0 auto 1rem;
+}
+.trainer-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 0.25rem; }
+.trainer-spec { font-size: 13px; color: var(--accent); font-weight: 700; margin-bottom: 0.75rem; }
+.trainer-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* ===========================
+   CONTATTI
+=========================== */
+.contatti { padding: 5rem 0; background: var(--surface); }
+.contatti-box {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+}
+.contatti-info h2 { color: #fff; }
+.contatti-info .section-label { color: var(--accent); }
+
+.info-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 1.25rem;
+}
+.info-item span { font-size: 20px; margin-top: 2px; }
+.info-item p { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+.contatti-form {
+  background: #1a1a1a; border-radius: var(--radius); padding: 2rem;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.contatti-form h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
+.contatti-form > p { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 0.5rem; }
+
+.contatti-form input,
+.contatti-form select {
+  background: #111; border: 1px solid #333; border-radius: 8px;
+  padding: 12px 16px; font-size: 14px; color: #fff;
+  font-family: var(--font); width: 100%; outline: none;
+  transition: border-color 0.2s;
+}
+.contatti-form input::placeholder { color: rgba(255,255,255,0.3); }
+.contatti-form input:focus,
+.contatti-form select:focus { border-color: var(--accent); }
+.contatti-form select option { background: #1a1a1a; }
+
+.contatti-form .btn-primary { margin-top: 4px; text-align: center; }
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+  background: #050505; padding: 2rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  text-align: center;
+}
+footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 48px; }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--surface); padding: 1.5rem 2rem; gap: 1rem; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: block; }
+  .nav-btn { display: none; }
+  .hero-stats { gap: 1.5rem; }
+  .corsi-grid, .piani-grid, .trainer-grid { grid-template-columns: 1fr; }
+  .piano-card.featured { transform: scale(1); }
+  .contatti-box { grid-template-columns: 1fr; }
+}
