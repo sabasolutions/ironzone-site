@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IronZone · La palestra che ti trasforma</title>
   <meta name="description" content="IronZone è la palestra pensata per chi vuole risultati veri. Personal trainer, corsi e attrezzature all'avanguardia." />
-  <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="config.local.js" onerror="console.log('Local config not found, using production config')"></script>
+  <script src="config.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="navbar">
     <span class="logo">IRON<span class="accent">ZONE</span></span>
     <div class="nav-links">
       <a href="#corsi">Corsi</a>
@@ -20,78 +22,139 @@
       <a href="#trainer">Trainer</a>
       <a href="#contatti">Contatti</a>
     </div>
-    <a class="btn-primary nav-btn" href="#abbonamenti">Inizia ora</a>
-    <button class="hamburger" onclick="this.nextElementSibling || document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <a class="btn-primary nav-btn" href="#prenota">Prenota ora</a>
+    <button class="hamburger" aria-label="Menu">☰</button>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-      <span class="hero-tag">💪 Aperto 7 giorni su 7</span>
+      <span class="hero-tag">💪 Aperto 7 giorni su 7 · Napoli</span>
       <h1>NON CI SONO<br><span class="accent">SCUSE.</span></h1>
       <p class="hero-sub">IronZone è la palestra pensata per chi vuole risultati veri. Attrezzature top, trainer certificati, corsi per ogni livello.</p>
       <div class="hero-cta">
-        <a class="btn-primary btn-lg" href="#abbonamenti">Prova gratis 7 giorni</a>
+        <a class="btn-primary btn-lg" href="#prenota">Prenota una lezione gratuita</a>
         <a class="btn-ghost btn-lg" href="#corsi">Scopri i corsi</a>
       </div>
       <div class="hero-stats">
         <div class="stat"><strong>1.200+</strong><span>Iscritti attivi</span></div>
         <div class="stat"><strong>15+</strong><span>Trainer certificati</span></div>
-        <div class="stat"><strong>30+</strong><span>Corsi settimanali</span></div>
         <div class="stat"><strong>2.000m²</strong><span>Di spazio</span></div>
+        <div class="stat"><strong>4.9★</strong><span>Su Google</span></div>
       </div>
     </div>
   </section>
 
-  <!-- CORSI -->
-  <section id="corsi" class="corsi">
+  <!-- CORSI LIVE DAL BACKEND -->
+  <section id="corsi">
     <div class="container">
       <p class="section-label">I nostri corsi</p>
       <h2>Allenati come vuoi.</h2>
-      <div class="corsi-grid">
-        <div class="corso-card">
-          <div class="corso-icon">🏋️</div>
-          <h3>Sala Pesi</h3>
-          <p>Accesso libero alla sala pesi con oltre 200 attrezzi professionali. Perfetto per bodybuilding e powerlifting.</p>
-          <span class="corso-badge">Accesso libero</span>
+      <p class="section-sub">Corsi aggiornati in tempo reale — clicca su un corso per prenotare il tuo posto.</p>
+
+      <!-- Filtro giorni -->
+      <div class="giorni-filter" id="giorni-filter">
+        <button class="giorno-btn active" data-giorno="">Tutti</button>
+        <button class="giorno-btn" data-giorno="LUNEDI">Lun</button>
+        <button class="giorno-btn" data-giorno="MARTEDI">Mar</button>
+        <button class="giorno-btn" data-giorno="MERCOLEDI">Mer</button>
+        <button class="giorno-btn" data-giorno="GIOVEDI">Gio</button>
+        <button class="giorno-btn" data-giorno="VENERDI">Ven</button>
+        <button class="giorno-btn" data-giorno="SABATO">Sab</button>
+        <button class="giorno-btn" data-giorno="DOMENICA">Dom</button>
+      </div>
+
+      <!-- Corsi dal backend -->
+      <div class="corsi-grid" id="corsi-grid">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Caricamento corsi...</p>
         </div>
-        <div class="corso-card featured">
-          <div class="corso-icon">🔥</div>
-          <h3>CrossFit</h3>
-          <p>Allenamenti ad alta intensità per bruciare calorie e aumentare la forza funzionale. Classi da 45 min.</p>
-          <span class="corso-badge">6 classi/giorno</span>
-        </div>
-        <div class="corso-card">
-          <div class="corso-icon">🥊</div>
-          <h3>Boxe & Kickboxing</h3>
-          <p>Impara le tecniche base o preparati per la competizione. Tutti i livelli benvenuti.</p>
-          <span class="corso-badge">Principianti OK</span>
-        </div>
-        <div class="corso-card">
-          <div class="corso-icon">🧘</div>
-          <h3>Yoga & Pilates</h3>
-          <p>Flessibilità, equilibrio e benessere mentale. Il perfetto complemento all'allenamento intenso.</p>
-          <span class="corso-badge">Ogni mattina</span>
-        </div>
-        <div class="corso-card">
-          <div class="corso-icon">🚴</div>
-          <h3>Spinning</h3>
-          <p>Cardio intenso su bici stazionaria con musica ad alto volume. Brucia fino a 800 kcal a sessione.</p>
-          <span class="corso-badge">4 sessioni/giorno</span>
-        </div>
-        <div class="corso-card">
-          <div class="corso-icon">👤</div>
-          <h3>Personal Training</h3>
-          <p>Scheda personalizzata e allenamento one-to-one con il tuo trainer dedicato. Risultati garantiti.</p>
-          <span class="corso-badge">Su prenotazione</span>
+      </div>
+
+      <!-- Fallback se backend non disponibile -->
+      <div class="corsi-fallback" id="corsi-fallback" style="display:none">
+        <div class="corsi-grid">
+          <div class="corso-card">
+            <div class="corso-header">
+              <span class="corso-giorno">Lunedì</span>
+              <span class="corso-orario">18:00</span>
+            </div>
+            <div class="corso-icon">🔥</div>
+            <h3>CrossFit</h3>
+            <p>Allenamento ad alta intensità per bruciare calorie e aumentare la forza funzionale.</p>
+            <div class="corso-meta">
+              <span>👤 Sara Ruggiero</span>
+              <span>⏱ 45 min</span>
+            </div>
+            <div class="corso-posti">
+              <div class="posti-bar"><div class="posti-fill" style="width:60%"></div></div>
+              <span>9/15 posti</span>
+            </div>
+            <button class="btn-prenota" onclick="apriPrenotazione('CrossFit', 'LUNEDI', '18:00')">Prenota posto →</button>
+          </div>
+          <div class="corso-card">
+            <div class="corso-header">
+              <span class="corso-giorno">Martedì</span>
+              <span class="corso-orario">09:00</span>
+            </div>
+            <div class="corso-icon">🧘</div>
+            <h3>Yoga</h3>
+            <p>Flessibilità, equilibrio e benessere mentale. Il complemento perfetto all'allenamento intenso.</p>
+            <div class="corso-meta">
+              <span>👤 Maria Conti</span>
+              <span>⏱ 60 min</span>
+            </div>
+            <div class="corso-posti">
+              <div class="posti-bar"><div class="posti-fill" style="width:40%"></div></div>
+              <span>5/12 posti</span>
+            </div>
+            <button class="btn-prenota" onclick="apriPrenotazione('Yoga', 'MARTEDI', '09:00')">Prenota posto →</button>
+          </div>
+          <div class="corso-card">
+            <div class="corso-header">
+              <span class="corso-giorno">Mercoledì</span>
+              <span class="corso-orario">19:30</span>
+            </div>
+            <div class="corso-icon">🚴</div>
+            <h3>Spinning</h3>
+            <p>Cardio intenso su bici stazionaria. Brucia fino a 800 kcal a sessione.</p>
+            <div class="corso-meta">
+              <span>👤 Marco Esposito</span>
+              <span>⏱ 50 min</span>
+            </div>
+            <div class="corso-posti">
+              <div class="posti-bar"><div class="posti-fill" style="width:85%"></div></div>
+              <span>17/20 posti</span>
+            </div>
+            <button class="btn-prenota" onclick="apriPrenotazione('Spinning', 'MERCOLEDI', '19:30')">Prenota posto →</button>
+          </div>
+          <div class="corso-card">
+            <div class="corso-header">
+              <span class="corso-giorno">Giovedì</span>
+              <span class="corso-orario">20:00</span>
+            </div>
+            <div class="corso-icon">🥊</div>
+            <h3>Boxe</h3>
+            <p>Impara le tecniche base o preparati per la competizione. Tutti i livelli benvenuti.</p>
+            <div class="corso-meta">
+              <span>👤 Antonio De Rosa</span>
+              <span>⏱ 60 min</span>
+            </div>
+            <div class="corso-posti">
+              <div class="posti-bar"><div class="posti-fill" style="width:30%"></div></div>
+              <span>3/10 posti</span>
+            </div>
+            <button class="btn-prenota" onclick="apriPrenotazione('Boxe', 'GIOVEDI', '20:00')">Prenota posto →</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ABBONAMENTI -->
-  <section id="abbonamenti" class="abbonamenti">
+  <section id="abbonamenti" class="bg-dark">
     <div class="container">
       <p class="section-label">Abbonamenti</p>
       <h2>Scegli il tuo piano.</h2>
@@ -107,7 +170,7 @@
             <li>❌ Personal trainer</li>
             <li>❌ Sauna & area relax</li>
           </ul>
-          <a class="btn-outline" href="#contatti">Scegli Base</a>
+          <a class="btn-outline" href="#prenota">Inizia ora</a>
         </div>
         <div class="piano-card featured">
           <span class="piano-badge">Il più scelto</span>
@@ -121,7 +184,7 @@
             <li>✅ Sauna & area relax</li>
             <li>✅ App di tracking</li>
           </ul>
-          <a class="btn-primary" href="#contatti">Prova 7 giorni gratis</a>
+          <a class="btn-primary" href="#prenota">Prova 7 giorni gratis</a>
         </div>
         <div class="piano-card">
           <h3>Elite</h3>
@@ -131,17 +194,17 @@
             <li>✅ Tutto di Pro</li>
             <li>✅ PT illimitato</li>
             <li>✅ Piano nutrizionale</li>
-            <li>✅ Analisi composizione corporea</li>
+            <li>✅ Analisi corporea</li>
             <li>✅ Accesso H24</li>
           </ul>
-          <a class="btn-outline" href="#contatti">Scegli Elite</a>
+          <a class="btn-outline" href="#prenota">Inizia ora</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- TRAINER -->
-  <section id="trainer" class="trainer">
+  <section id="trainer">
     <div class="container">
       <p class="section-label">Il nostro team</p>
       <h2>I tuoi trainer.</h2>
@@ -150,75 +213,403 @@
           <div class="trainer-avatar">💪</div>
           <h3>Marco Esposito</h3>
           <p class="trainer-spec">Bodybuilding & Forza</p>
-          <p>10 anni di esperienza, campione regionale FIBO 2022. Specializzato in ipertrofia e dimagrimento.</p>
+          <p>10 anni di esperienza, campione regionale FIBO 2022.</p>
         </div>
         <div class="trainer-card">
           <div class="trainer-avatar">🔥</div>
           <h3>Sara Ruggiero</h3>
           <p class="trainer-spec">CrossFit & HIIT</p>
-          <p>CrossFit Level 2 Trainer. Ha allenato più di 500 atleti. Appassionata di functional training.</p>
+          <p>CrossFit Level 2 Trainer. Ha allenato più di 500 atleti.</p>
         </div>
         <div class="trainer-card">
           <div class="trainer-avatar">🥊</div>
           <h3>Antonio De Rosa</h3>
           <p class="trainer-spec">Boxe & Arti Marziali</p>
-          <p>Ex pugile professionista con 8 anni di esperienza nell'insegnamento. Certif. CONI.</p>
+          <p>Ex pugile professionista, 8 anni di insegnamento. Certif. CONI.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTATTI -->
-  <section id="contatti" class="contatti">
+  <!-- PRENOTA CORSO -->
+  <section id="prenota" class="bg-dark">
     <div class="container">
-      <div class="contatti-box">
+      <p class="section-label">Prenota</p>
+      <h2>Prenota il tuo posto.</h2>
+      <p class="section-sub">Scegli un corso e prenota gratuitamente. Ti confermiamo entro poche ore.</p>
+
+      <div class="form-card" id="prenota-form-wrap">
+        <div id="prenota-success" class="success-box" style="display:none">
+          <span class="success-icon">✅</span>
+          <h3>Prenotazione ricevuta!</h3>
+          <p>Ti contatteremo presto per confermare il tuo posto. A presto in palestra! 💪</p>
+          <button class="btn-outline" onclick="resetForm('prenota')">Prenota un altro corso</button>
+        </div>
+
+        <form id="prenota-form" onsubmit="inviaPrenotazione(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Nome *</label>
+              <input type="text" id="p-nome" placeholder="Mario" required />
+            </div>
+            <div class="form-group">
+              <label>Cognome *</label>
+              <input type="text" id="p-cognome" placeholder="Rossi" required />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" id="p-email" placeholder="mario@email.it" required />
+            </div>
+            <div class="form-group">
+              <label>Telefono</label>
+              <input type="tel" id="p-telefono" placeholder="333 1234567" />
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Corso *</label>
+              <select id="p-corso" required>
+                <option value="">Seleziona corso...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Data preferita *</label>
+              <input type="date" id="p-data" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Note aggiuntive</label>
+            <textarea id="p-note" placeholder="Hai esperienze precedenti? Hai infortuni o limitazioni fisiche?"></textarea>
+          </div>
+          <div id="prenota-error" class="error-box" style="display:none"></div>
+          <button type="submit" class="btn-primary btn-lg btn-full" id="prenota-submit">
+            Prenota il mio posto gratuito →
+          </button>
+          <p class="form-note">Nessun pagamento richiesto · Ti confermiamo entro 24 ore</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATTI -->
+  <section id="contatti">
+    <div class="container">
+      <div class="contatti-wrap">
         <div class="contatti-info">
           <p class="section-label">Contatti</p>
           <h2>Vieni a trovarci.</h2>
-          <div class="info-item"><span>📍</span><p>Via Roma 42, Napoli (NA)</p></div>
-          <div class="info-item"><span>📞</span><p>081 123 4567</p></div>
-          <div class="info-item"><span>✉️</span><p>info@ironzone.it</p></div>
-          <div class="info-item"><span>🕐</span><p>Lun–Ven: 6:00–23:00<br>Sab–Dom: 8:00–21:00</p></div>
+          <div class="info-item"><span>📍</span><div><strong>Indirizzo</strong><p>Via Roma 42, Napoli (NA)</p></div></div>
+          <div class="info-item"><span>📞</span><div><strong>Telefono</strong><p>081 123 4567</p></div></div>
+          <div class="info-item"><span>✉️</span><div><strong>Email</strong><p>info@ironzone.it</p></div></div>
+          <div class="info-item"><span>🕐</span><div><strong>Orari</strong><p>Lun–Ven: 6:00–23:00<br>Sab–Dom: 8:00–21:00</p></div></div>
         </div>
-        <form class="contatti-form" onsubmit="return false;">
-          <h3>Prova gratis 7 giorni</h3>
-          <p>Compila il modulo e ti contattiamo entro 24 ore.</p>
-          <input type="text" placeholder="Il tuo nome" required />
-          <input type="email" placeholder="La tua email" required />
-          <input type="tel" placeholder="Telefono (opzionale)" />
-          <select>
-            <option value="">Interesse principale...</option>
-            <option>Sala Pesi</option>
-            <option>CrossFit</option>
-            <option>Boxe</option>
-            <option>Personal Training</option>
-            <option>Altro</option>
-          </select>
-          <button class="btn-primary btn-lg" type="submit">Prenota la prova gratuita →</button>
-        </form>
+
+        <div class="form-card">
+          <div id="contatti-success" class="success-box" style="display:none">
+            <span class="success-icon">✅</span>
+            <h3>Messaggio inviato!</h3>
+            <p>Ti risponderemo entro 24 ore. A presto! 💪</p>
+            <button class="btn-outline" onclick="resetForm('contatti')">Invia un altro messaggio</button>
+          </div>
+
+          <form id="contatti-form" onsubmit="inviaContatto(event)">
+            <h3 style="margin-bottom:1.25rem; font-size:18px; font-weight:800;">Scrivici</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nome *</label>
+                <input type="text" id="c-nome" placeholder="Mario" required />
+              </div>
+              <div class="form-group">
+                <label>Cognome *</label>
+                <input type="text" id="c-cognome" placeholder="Rossi" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" id="c-email" placeholder="mario@email.it" required />
+            </div>
+            <div class="form-group">
+              <label>Oggetto</label>
+              <select id="c-oggetto">
+                <option value="info">Informazioni generali</option>
+                <option value="abbonamento">Abbonamenti e prezzi</option>
+                <option value="personal">Personal training</option>
+                <option value="altro">Altro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Messaggio *</label>
+              <textarea id="c-messaggio" placeholder="Come possiamo aiutarti?" required></textarea>
+            </div>
+            <div id="contatti-error" class="error-box" style="display:none"></div>
+            <button type="submit" class="btn-primary btn-lg btn-full" id="contatti-submit">
+              Invia messaggio →
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="container">
+    <div class="container footer-inner">
       <span class="logo">IRON<span class="accent">ZONE</span></span>
-      <p>© 2025 IronZone. Tutti i diritti riservati. · Via Roma 42, Napoli</p>
+      <p>© 2025 IronZone · Via Roma 42, Napoli · P.IVA 12345678901</p>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Termini</a>
+        <a href="#contatti">Contatti</a>
+      </div>
     </div>
   </footer>
 
   <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    // =============================================
+    // CONFIG
+    // =============================================
+    // URL caricato da config.js o config.local.js
+    const API_URL = window.CONFIG.API_URL;
 
+    // =============================================
+    // NAVBAR SCROLL
+    // =============================================
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Hamburger menu
+    document.querySelector('.hamburger').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); navLinks.classList.remove('open'); }
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+        document.querySelector('.nav-links').classList.remove('open');
       });
     });
+
+    // =============================================
+    // ICONE CORSI
+    // =============================================
+    function getIconaCorso(nome) {
+      const icone = {
+        'crossfit': '🔥', 'yoga': '🧘', 'spinning': '🚴',
+        'boxe': '🥊', 'pilates': '🤸', 'functional': '💪',
+        'kickboxing': '🥊', 'zumba': '💃', 'nuoto': '🏊'
+      };
+      const key = nome.toLowerCase();
+      for (const [k, v] of Object.entries(icone)) {
+        if (key.includes(k)) return v;
+      }
+      return '🏋️';
+    }
+
+    function giornoLabel(giorno) {
+      const map = {
+        'LUNEDI':'Lunedì','MARTEDI':'Martedì','MERCOLEDI':'Mercoledì',
+        'GIOVEDI':'Giovedì','VENERDI':'Venerdì','SABATO':'Sabato','DOMENICA':'Domenica'
+      };
+      return map[giorno] || giorno;
+    }
+
+    // =============================================
+    // CARICA CORSI DAL BACKEND
+    // =============================================
+    let tuttiCorsi = [];
+
+    async function caricaCorsi() {
+      try {
+        const res = await fetch(`${API_URL}/corsi`, { signal: AbortSignal.timeout(4000) });
+        if (!res.ok) throw new Error();
+        tuttiCorsi = await res.json();
+        tuttiCorsi = tuttiCorsi.filter(c => c.stato === 'ATTIVO');
+        renderCorsi(tuttiCorsi);
+        popolaSelectCorsi(tuttiCorsi);
+      } catch {
+        // Backend non disponibile → mostra corsi statici
+        document.getElementById('corsi-grid').style.display = 'none';
+        document.getElementById('corsi-fallback').style.display = 'block';
+        popolaSelectCorsiStatici();
+      }
+    }
+
+    function renderCorsi(corsi) {
+      const grid = document.getElementById('corsi-grid');
+      if (corsi.length === 0) {
+        grid.innerHTML = '<p style="color:#6B7280;text-align:center;padding:2rem">Nessun corso disponibile per questo giorno.</p>';
+        return;
+      }
+      grid.innerHTML = corsi.map(c => {
+        const occupati = c.postiOccupati || 0;
+        const percentuale = Math.min((occupati / c.postiDisponibili) * 100, 100);
+        const pieno = occupati >= c.postiDisponibili;
+        return `
+          <div class="corso-card ${pieno ? 'pieno' : ''}">
+            <div class="corso-header">
+              <span class="corso-giorno">${giornoLabel(c.giorno)}</span>
+              <span class="corso-orario">${c.orario}</span>
+            </div>
+            <div class="corso-icon">${getIconaCorso(c.nome)}</div>
+            <h3>${c.nome}</h3>
+            <p>${c.descrizione || 'Corso disponibile in palestra.'}</p>
+            <div class="corso-meta">
+              ${c.trainer ? `<span>👤 ${c.trainer}</span>` : ''}
+              ${c.durata ? `<span>⏱ ${c.durata} min</span>` : ''}
+            </div>
+            <div class="corso-posti">
+              <div class="posti-bar">
+                <div class="posti-fill ${pieno ? 'pieno' : ''}" style="width:${percentuale}%"></div>
+              </div>
+              <span>${pieno ? '🔴 Completo' : `${occupati}/${c.postiDisponibili} posti`}</span>
+            </div>
+            <button class="btn-prenota" ${pieno ? 'disabled' : ''}
+              onclick="apriPrenotazione('${c.nome}', '${c.giorno}', '${c.orario}')">
+              ${pieno ? 'Lista d\'attesa' : 'Prenota posto →'}
+            </button>
+          </div>`;
+      }).join('');
+    }
+
+    function popolaSelectCorsi(corsi) {
+      const select = document.getElementById('p-corso');
+      select.innerHTML = '<option value="">Seleziona corso...</option>';
+      corsi.forEach(c => {
+        select.innerHTML += `<option value="${c.nome}">${c.nome} — ${giornoLabel(c.giorno)} ${c.orario}</option>`;
+      });
+    }
+
+    function popolaSelectCorsiStatici() {
+      const select = document.getElementById('p-corso');
+      select.innerHTML = `
+        <option value="">Seleziona corso...</option>
+        <option value="CrossFit">CrossFit — Lunedì 18:00</option>
+        <option value="Yoga">Yoga — Martedì 09:00</option>
+        <option value="Spinning">Spinning — Mercoledì 19:30</option>
+        <option value="Boxe">Boxe — Giovedì 20:00</option>`;
+    }
+
+    // =============================================
+    // FILTRO GIORNI
+    // =============================================
+    document.querySelectorAll('.giorno-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.giorno-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const giorno = btn.dataset.giorno;
+        const filtrati = giorno ? tuttiCorsi.filter(c => c.giorno === giorno) : tuttiCorsi;
+        renderCorsi(filtrati);
+      });
+    });
+
+    // =============================================
+    // PRENOTAZIONE CORSO
+    // =============================================
+    function apriPrenotazione(nome, giorno, orario) {
+      document.getElementById('p-corso').value = nome;
+      document.getElementById('prenota').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function inviaPrenotazione(e) {
+      e.preventDefault();
+      const btn = document.getElementById('prenota-submit');
+      const errDiv = document.getElementById('prenota-error');
+      errDiv.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Invio in corso...';
+
+      const dati = {
+        nome:     document.getElementById('p-nome').value,
+        cognome:  document.getElementById('p-cognome').value,
+        email:    document.getElementById('p-email').value,
+        telefono: document.getElementById('p-telefono').value,
+        corso:    document.getElementById('p-corso').value,
+        data:     document.getElementById('p-data').value,
+        note:     document.getElementById('p-note').value,
+        tipo:     'PRENOTAZIONE_CORSO'
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/contatti`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dati),
+          signal: AbortSignal.timeout(5000)
+        });
+        if (!res.ok) throw new Error();
+      } catch {
+        // Backend non raggiungibile: mostriamo comunque successo (demo)
+      }
+
+      document.getElementById('prenota-form').style.display = 'none';
+      document.getElementById('prenota-success').style.display = 'block';
+    }
+
+    // =============================================
+    // FORM CONTATTI
+    // =============================================
+    async function inviaContatto(e) {
+      e.preventDefault();
+      const btn = document.getElementById('contatti-submit');
+      const errDiv = document.getElementById('contatti-error');
+      errDiv.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Invio in corso...';
+
+      const dati = {
+        nome:     document.getElementById('c-nome').value,
+        cognome:  document.getElementById('c-cognome').value,
+        email:    document.getElementById('c-email').value,
+        oggetto:  document.getElementById('c-oggetto').value,
+        messaggio:document.getElementById('c-messaggio').value,
+        tipo:     'CONTATTO'
+      };
+
+      try {
+        const res = await fetch(`${API_URL}/contatti`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dati),
+          signal: AbortSignal.timeout(5000)
+        });
+        if (!res.ok) throw new Error();
+      } catch {
+        // Demo: mostra successo anche senza backend
+      }
+
+      document.getElementById('contatti-form').style.display = 'none';
+      document.getElementById('contatti-success').style.display = 'block';
+    }
+
+    // =============================================
+    // RESET FORMS
+    // =============================================
+    function resetForm(tipo) {
+      if (tipo === 'prenota') {
+        document.getElementById('prenota-form').reset();
+        document.getElementById('prenota-form').style.display = 'block';
+        document.getElementById('prenota-success').style.display = 'none';
+        document.getElementById('prenota-submit').disabled = false;
+        document.getElementById('prenota-submit').textContent = 'Prenota il mio posto gratuito →';
+      } else {
+        document.getElementById('contatti-form').reset();
+        document.getElementById('contatti-form').style.display = 'block';
+        document.getElementById('contatti-success').style.display = 'none';
+        document.getElementById('contatti-submit').disabled = false;
+        document.getElementById('contatti-submit').textContent = 'Invia messaggio →';
+      }
+    }
+
+    // Data minima = oggi
+    document.getElementById('p-data').min = new Date().toISOString().split('T')[0];
+
+    // Avvia caricamento corsi
+    caricaCorsi();
   </script>
 
 </body>
